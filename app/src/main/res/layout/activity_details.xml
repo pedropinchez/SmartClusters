@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Details"
+    android:orientation="vertical"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/coursename"
+        android:padding="@dimen/_12sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="coursename: MUKURWEINI TTI"
+        android:textSize="@dimen/_20sdp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#fff"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingRight="@dimen/_8sdp"
+        />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirm"
+            android:src="@drawable/correct_won"/>
+
+    <TextView
+        android:paddingTop="5dp"
+        android:id="@+id/recomedation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Cluster allows you to apply for this code. We recomend you to apply"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:paddingBottom="@dimen/_8sdp"
+        android:paddingStart="@dimen/_8sdp"/>
+    <TextView
+        android:paddingTop="5dp"
+        android:id="@+id/progcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prog code: 1490706"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:paddingBottom="@dimen/_8sdp"
+        android:paddingStart="@dimen/_8sdp"/>
+    <TextView
+        android:id="@+id/unicode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unicode"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="#000"
+        android:paddingStart="@dimen/_8sdp"
+        />
+
+    <TextView
+        android:id="@+id/cutoff_2020"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2020 Cut Off: 31.444"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingStart="@dimen/_8sdp"/>
+    <TextView
+        android:id="@+id/cutoff_2021"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2021 cut off: 31.444"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:padding="@dimen/_10sdp"/>
+    <TextView
+        android:id="@+id/myclusters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Clusters: 33.99"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:padding="@dimen/_10sdp"/>
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Total Points: 33.99"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:padding="@dimen/_10sdp"/>
+
+    <TextView
+        android:id="@+id/grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Grade is: A"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="#000"
+        android:padding="@dimen/_10sdp"/>
+    <Button
+        android:id="@+id/apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="APPLY"
+        android:background="@drawable/btn_rounded_blue"/>
+
+</LinearLayout>

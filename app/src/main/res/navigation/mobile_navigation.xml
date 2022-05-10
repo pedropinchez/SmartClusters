@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.supreme.smartclusters.Fragments.Home"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_unis"
+        android:name="com.supreme.smartclusters.Fragments.Universities"
+        android:label="Universities"
+        tools:layout="@layout/fragment_university">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.supreme.smartclusters.Fragments.profile"
+        android:label="PROFILE"
+        tools:layout="@layout/fragment_profile">
+
+    </fragment>
+
+
+ 
+
+
+
+
+</navigation>

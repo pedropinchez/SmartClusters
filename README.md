@@ -1,0 +1,2 @@
+# SmartClusters
+The KUCCPS process of graduate intake is slow and hectic. The following app calculate the students cluster points and recommends top three courses that the candidate can apply. The app also shows the candidates different universities, courses and cluster points per course. The app  further advices the candidate on more marketable courses. The app is set to be integrated with Telegram/WhatsApp bot to enable candidates to interact with system and get self-service. 

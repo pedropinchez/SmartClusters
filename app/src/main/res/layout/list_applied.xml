@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/btn_rounded_purple"
+    >
+
+
+        <TextView
+            android:id="@+id/uni_code"
+            android:padding="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Uni Code: MUKURWEINI TTI"
+            android:textSize="@dimen/_20sdp"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#fff"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingRight="@dimen/_8sdp"
+        />
+        <TextView
+            android:paddingTop="5dp"
+            android:id="@+id/progcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prog code: 1490706"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#000"
+            android:paddingBottom="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"/>
+    <TextView
+        android:id="@+id/course_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bachelor of Science in Mathematics (Pure Mathematics, Applied Mathematics and Statistics)"
+        android:textSize="@dimen/_15sdp"
+        android:textColor="#000"
+        android:paddingStart="@dimen/_8sdp"
+        />
+
+        <TextView
+            android:id="@+id/mycluster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My cluster: 31.444"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#000"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"/>
+        <TextView
+            android:id="@+id/cutoff_2021"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2021 cut off: 31.444"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="#000"
+            android:padding="@dimen/_10sdp"/>
+
+
+
+</LinearLayout>

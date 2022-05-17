@@ -7,12 +7,16 @@
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/activity_register.xml" value="0.18" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/app_bar_main.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/content_main.xml" value="0.12135416666666667" />
+        <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/fragment_applied.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/fragment_home.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/fragment_profile.xml" value="0.358695652173913" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/fragment_university.xml" value="0.12135416666666667" />
+        <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/list_applied.xml" value="0.358695652173913" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/list_items.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/list_unis.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/layout/nav_header_main.xml" value="0.12135416666666667" />
+        <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/menu/activity_main_drawer.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/peter/StudioProjects/SmartClusters/app/src/main/res/menu/main.xml" value="0.38697916666666665" />
         <entry key="app/src/main/res/drawable-v21/btn_rounded_red.xml" value="0.20871794871794871" />
         <entry key="app/src/main/res/drawable-v21/home.xml" value="0.20871794871794871" />
         <entry key="app/src/main/res/drawable-v21/ic_profile.xml" value="0.20871794871794871" />

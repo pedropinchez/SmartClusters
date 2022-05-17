@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.supreme.smartclusters.Fragments.Applied;
 import com.supreme.smartclusters.Fragments.Home;
 import com.supreme.smartclusters.Fragments.Universities;
 import com.supreme.smartclusters.Fragments.profile;
@@ -168,8 +169,14 @@ public class MainActivity extends AppCompatActivity {
                         Home home = new Home();
                         goToFragment(home);
                         drawer.closeDrawers();
-
                         break;
+
+                    case R.id.nav_applied:
+                        Applied applied = new Applied();
+                        goToFragment(applied);
+                        drawer.closeDrawers();
+                        break;
+
                     case R.id.nav_unis:
                         Universities uni = new Universities();
                         goToFragment(uni);

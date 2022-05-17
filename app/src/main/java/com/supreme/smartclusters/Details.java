@@ -110,10 +110,11 @@ public class Details extends AppCompatActivity {
 
 
                 post.put("course", course);
+                post.put("cutoffone", cutoffones);
                 post.put("cutofftwo", cutofftwos);
                 post.put("unicode", unicodes);
                 post.put("progcode", progcodes);
-                post.put("sciB", clus);
+                post.put("mycluster", clus);
                 FirebaseFirestore.getInstance().collection("courses").document()
                         .set(post)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

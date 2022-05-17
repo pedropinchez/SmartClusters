@@ -24,6 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.supreme.smartclusters.MyAppliedAdapter;
+import com.supreme.smartclusters.MyAppliedData;
 import com.supreme.smartclusters.MyListAdapter;
 import com.supreme.smartclusters.MyListData;
 import com.supreme.smartclusters.R;
@@ -32,43 +34,32 @@ import com.supreme.smartclusters.R;
 import java.util.ArrayList;
 
 
-public class Home extends Fragment {
+public class Applied extends Fragment {
     RecyclerView recyclerView;
-    ArrayList<MyListData> listdata;
+    ArrayList<MyAppliedData> appliedData;
     ArrayList<String> documentIds;
     FirebaseFirestore firebaseFirestore;
-    CollectionReference collectionReference;
     Query query;
-    String cluss;
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_applied, container, false);
         recyclerView = view.findViewById(R.id.recycerview);
 
         if (container != null) {
             container.removeAllViews();
         }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("marksdata");
-        usersRef.get().addOnCompleteListener((OnCompleteListener<QuerySnapshot>) task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String clus = document.get("cluster").toString();
-
-
-
-                }}
-        });
-        listdata = new ArrayList<>();
+        CollectionReference usersRef = db.collection("courses");
+        appliedData = new ArrayList<>();
         documentIds = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
 
-        query = firebaseFirestore.collection("cluster_guide").orderBy("uniCode", Query.Direction.DESCENDING);
-        firebaseFirestore.collection("cluster_guide");
+        query = firebaseFirestore.collection("courses").orderBy("unicode", Query.Direction.DESCENDING);
+        firebaseFirestore.collection("courses");
 
         return view;
 
@@ -89,7 +80,7 @@ public class Home extends Fragment {
 
 
                     else {
-                        listdata = new ArrayList<>();
+                        appliedData = new ArrayList<>();
 
                         assert queryDocumentSnapshots != null;
                         if (!queryDocumentSnapshots.isEmpty()) {
@@ -98,8 +89,8 @@ public class Home extends Fragment {
 
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 id = documentSnapshot.getId();
-                                MyListData myListData = documentSnapshot.toObject(MyListData.class);
-                                listdata.add(myListData);
+                                MyAppliedData myAppliedData = documentSnapshot.toObject(MyAppliedData.class);
+                                appliedData.add(myAppliedData);
                                 documentIds.add(id);
 
                             }
@@ -108,8 +99,8 @@ public class Home extends Fragment {
 
 
                                 recyclerView.setAdapter(null);
-                                MyListAdapter adapter = new MyListAdapter(listdata, getActivity());
-                               // recyclerView.setHasFixedSize(true);
+                                MyAppliedAdapter adapter = new MyAppliedAdapter(appliedData, getActivity());
+                                // recyclerView.setHasFixedSize(true);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
 

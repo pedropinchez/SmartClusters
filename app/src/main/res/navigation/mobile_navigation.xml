@@ -12,6 +12,13 @@
 
     </fragment>
     <fragment
+        android:id="@+id/nav_applied"
+        android:name="com.supreme.smartclusters.Fragments.Applied"
+        android:label="Applied"
+        tools:layout="@layout/fragment_applied">
+
+    </fragment>
+    <fragment
         android:id="@+id/nav_unis"
         android:name="com.supreme.smartclusters.Fragments.Universities"
         android:label="Universities"

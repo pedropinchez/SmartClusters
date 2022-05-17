@@ -20,8 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.supreme.smartclusters.Fragments.Home;
 import com.supreme.smartclusters.Fragments.Universities;
 import com.supreme.smartclusters.Fragments.profile;
@@ -67,80 +71,69 @@ public class MainActivity extends AppCompatActivity {
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        final CircleImageView profile_image1=headerView.findViewById(R.id.pimage);
         final TextView navUsername = (TextView) headerView.findViewById(R.id.username);
         final TextView email = (TextView) headerView.findViewById(R.id.email);
-        db.collection("marksdata").document().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    if (task.getResult().exists()) {
-                        String eng = task.getResult().getString("eng");
-                        String kisw = task.getResult().getString("kisw");
-                        String math = task.getResult().getString("math");
-                        String sciA = task.getResult().getString("sciA");
-                        String sciB = task.getResult().getString("sciB");
-                        String hum = task.getResult().getString("hum");
-                        String applied = task.getResult().getString("applied");
-                        String grade = task.getResult().getString("grade");
-                        if (eng==null || kisw==null || math==null || sciA==null||sciB==null||hum==null||applied==null||grade==null ) {
-                            Toast.makeText(MainActivity.this, "some Marks data doesnt exsisit", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else {
-                            int english=Integer.parseInt(eng);
-                            int kiswa=Integer.parseInt(kisw);
-                            int maths=Integer.parseInt(math);
-                            int scia=Integer.parseInt(sciA);
-                            int scib=Integer.parseInt(sciB);
-                            int human=Integer.parseInt(hum);
-                            int app=Integer.parseInt(applied);
-                            int t=english+kiswa+maths+scia+scib+human+app;
-                            int T=84;
-                            int a=maths;
-                            int b=Math.max(kiswa,english);
-                            int c=Math.max(scia,scib);
-                            int d=Math.max(human,app);
-                            int r=a+b+c+d;
-                            int R=48;
-                            double f=Math.sqrt((r/R)*(t/T));
-                            f= (int) (f*48);
-
-                            Map<String, Object> post = new HashMap<>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String profemail = user.getEmail();
+        email.setText(profemail);
 
 
-                            post.put("cluster", f);
-                            post.put("total", t);
-                            FirebaseFirestore.getInstance().collection("marksdata").document()
-                                    .set(post)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // pdialog.dismiss();
-                                            Toast.makeText(MainActivity.this, "upload success", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(MainActivity.this, MainActivity.class));
-                                            finish();
+        db.collection("marksdata").document(userId).get().addOnCompleteListener(task -> {
 
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
-                                            finish();
+                if (task.getResult().exists()) {
+                    Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
+                    String eng = task.getResult().getString("eng");
+                    String kisw = task.getResult().getString("kisw");
+                    String math = task.getResult().getString("math");
+                    String sciA = task.getResult().getString("sciA");
+                    String sciB = task.getResult().getString("sciB");
+                    String hum = task.getResult().getString("hum");
+                    String applied = task.getResult().getString("applied");
+                    String grade = task.getResult().getString("grade");
+
+                        int english=Integer.parseInt(eng);
+                        int kiswa=Integer.parseInt(kisw);
+                        int maths=Integer.parseInt(math);
+                        int scia=Integer.parseInt(sciA);
+                        int scib=Integer.parseInt(sciB);
+                        int human=Integer.parseInt(hum);
+                        int app=Integer.parseInt(applied);
+                        int t=english+kiswa+maths+scia+scib+human+app;
+                        int T=84;
+                        int a=maths;
+                        int b=Math.max(kiswa,english);
+                        int c=Math.max(scia,scib);
+                        int d=Math.max(human,app);
+                        int r=a+b+c+d;
+                        int R=48;
+                        double f=Math.sqrt((r/R)*(t/T));
+                        f= (int) (f*48);
+
+                        Map<String, Object> post = new HashMap<>();
 
 
-                                        }
-                                    });
+                        post.put("cluster", f);
+                        post.put("total", t);
+                        FirebaseFirestore.getInstance().collection("marksdata").document()
+                                .set(post)
+                                .addOnSuccessListener(aVoid -> {
+                                    // pdialog.dismiss();
+                                    Toast.makeText(MainActivity.this, "upload success", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                                    finish();
+
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
+                                    finish();
 
 
-                        }  }
-                } else {
-                    String errorMessage = task.getException().getMessage();
-                    Toast.makeText(MainActivity.this, "Firestore Load Error: " + errorMessage, Toast.LENGTH_LONG).show();
-                }
+                                });
 
-            }
+
+                      }
+
+
         });
 
 

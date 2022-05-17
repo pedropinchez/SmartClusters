@@ -26,18 +26,20 @@
         android:paddingRight="@dimen/_8sdp"
         />
 
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/confirm"
-            android:src="@drawable/correct_won"/>
+    <ImageView
+        android:id="@+id/confirm"
+        android:layout_width="39dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/correct_won"
+        android:visibility="invisible" />
 
     <TextView
         android:paddingTop="5dp"
         android:id="@+id/recomedation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:text="Your Cluster allows you to apply for this code. We recomend you to apply"
         android:textSize="@dimen/_16sdp"
         android:textColor="#000"
@@ -107,6 +109,7 @@
         android:padding="@dimen/_10sdp"/>
     <Button
         android:id="@+id/apply"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

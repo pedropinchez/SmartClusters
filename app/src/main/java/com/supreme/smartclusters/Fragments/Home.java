@@ -72,6 +72,7 @@ public class Home extends Fragment {
     FirebaseFirestore firebaseFirestore;
     CollectionReference collectionReference;
     Query query;
+    String cluss;
 
 
     @Override
@@ -83,9 +84,22 @@ public class Home extends Fragment {
         if (container != null) {
             container.removeAllViews();
         }
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference usersRef = db.collection("marksdata");
+        usersRef.get().addOnCompleteListener((OnCompleteListener<QuerySnapshot>) task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String clus = document.get("cluster").toString();
+
+
+
+                }}
+        });
         listdata = new ArrayList<>();
         documentIds = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+
         query = firebaseFirestore.collection("cluster_guide").orderBy("uniCode", Query.Direction.DESCENDING);
         firebaseFirestore.collection("cluster_guide");
 

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +42,9 @@ public class Home extends Fragment {
     Query query;
     String cluss;
 
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private String userId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,9 +69,11 @@ public class Home extends Fragment {
         listdata = new ArrayList<>();
         documentIds = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
 
-
-        query = firebaseFirestore.collection("cluster_guide").orderBy("uniCode", Query.Direction.DESCENDING);
+        query = firebaseFirestore.document(userId).collection("cluster_guide").orderBy("uniCode", Query.Direction.DESCENDING);
         firebaseFirestore.collection("cluster_guide");
 
         return view;

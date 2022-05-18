@@ -14,8 +14,15 @@
     <fragment
         android:id="@+id/nav_applied"
         android:name="com.supreme.smartclusters.Fragments.Applied"
-        android:label="Applied"
+        android:label="Favourite"
         tools:layout="@layout/fragment_applied">
+
+    </fragment>
+    <fragment
+        android:id="@+id/nav_Recomeded"
+        android:name="com.supreme.smartclusters.Fragments.Recommeded"
+        android:label="Recommeded"
+        tools:layout="@layout/fragment_recommeded">
 
     </fragment>
     <fragment

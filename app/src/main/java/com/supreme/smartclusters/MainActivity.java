@@ -1,7 +1,9 @@
 package com.supreme.smartclusters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,8 +30,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.supreme.smartclusters.Fragments.Applied;
 import com.supreme.smartclusters.Fragments.Home;
+import com.supreme.smartclusters.Fragments.Recommeded;
 import com.supreme.smartclusters.Fragments.Universities;
 import com.supreme.smartclusters.Fragments.profile;
+import com.supreme.smartclusters.Login.login;
 
 
 import androidx.annotation.NonNull;
@@ -177,6 +181,12 @@ public class MainActivity extends AppCompatActivity {
                         drawer.closeDrawers();
                         break;
 
+                    case R.id.nav_Recomeded:
+                        Recommeded recommeded = new Recommeded();
+                        goToFragment(recommeded);
+                        drawer.closeDrawers();
+                        break;
+
                     case R.id.nav_unis:
                         Universities uni = new Universities();
                         goToFragment(uni);
@@ -223,7 +233,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
 
 
-
+                mAuth.signOut();
+                navigateToLogin();
+                finish();
                 break;
 
 
@@ -234,6 +246,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void navigateToLogin() {
+        Intent loginIntent = new Intent(MainActivity.this, login.class);
+        startActivity(loginIntent);
+        finish();
     }
 
     @Override

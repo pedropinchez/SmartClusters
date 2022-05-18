@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.supreme.smartclusters.marks.AppliedStep;
 import com.supreme.smartclusters.marks.EngStep;
@@ -38,7 +39,9 @@ public class MarksEntry extends Activity implements StepperFormListener {
     private HumStep humStep;
     private AppliedStep appliedStep;
     private GradeStep gradeStep;
-
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private String userId;
 
 
     private VerticalStepperFormView verticalStepperForm;
@@ -47,7 +50,9 @@ public class MarksEntry extends Activity implements StepperFormListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marksentry);
-
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
         // Create the steps.
         engStep = new EngStep("English Score");
         kiswStep=new KiswStep("Kiswahili Score");
@@ -116,7 +121,7 @@ public class MarksEntry extends Activity implements StepperFormListener {
 
 
 
-        FirebaseFirestore.getInstance().collection("marksdata").document()
+        FirebaseFirestore.getInstance().collection("marksdata").document(userId)
                 .set(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -124,6 +129,7 @@ public class MarksEntry extends Activity implements StepperFormListener {
                         // pdialog.dismiss();
                         Toast.makeText(MarksEntry.this, "upload success", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        finish();
 
                     }
                 })

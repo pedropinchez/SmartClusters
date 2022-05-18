@@ -115,27 +115,42 @@ public class Details extends AppCompatActivity {
                 post.put("unicode", unicodes);
                 post.put("progcode", progcodes);
                 post.put("mycluster", clus);
-                FirebaseFirestore.getInstance().collection("courses").document()
-                        .set(post)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                // pdialog.dismiss();
-                                Toast.makeText(Details.this, "You have succesfully registered for this course", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
-                                finish();
 
 
-                            }
-                        });
-            }
+                db.collection("favourites").document(userId).set(post).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Details.this, "Course added to favourites", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        } else {
+                            String errorMessage = task.getException().getMessage();
+                            Toast.makeText(Details.this, "Firestore Error: " + errorMessage, Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+//                FirebaseFirestore.getInstance().collection("courses").document()
+//                        .set(post)
+//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                // pdialog.dismiss();
+//                                Toast.makeText(Details.this, "Course added to favourites", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
+//                                finish();
+//
+//
+//                            }
+//                        });
+           }
         });
 //        db.collection("marksdata").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //            @Override

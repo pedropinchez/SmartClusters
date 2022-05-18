@@ -16,17 +16,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class MyAppliedAdapter extends RecyclerView.Adapter<MyAppliedAdapter.ViewHolder> {
+public class MyRecAdapter extends RecyclerView.Adapter<MyRecAdapter.ViewHolder> {
 
-    private ArrayList<MyAppliedData> appliedData;
+    private ArrayList<MyRecData> RecData;
     static Context cnt;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private String userId;
     public double f;
 
-    public MyAppliedAdapter(ArrayList<MyAppliedData> appliedData, Context cnt) {
-        this.appliedData = appliedData;
+    public MyRecAdapter(ArrayList<MyRecData> RecData, Context cnt) {
+        this.RecData = RecData;
         this.cnt = cnt;
     }
 
@@ -41,16 +41,16 @@ public class MyAppliedAdapter extends RecyclerView.Adapter<MyAppliedAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        final MyAppliedData myAppliedData = appliedData.get(position);
+        final MyRecData myRecData = RecData.get(position);
 
         try {
 
 
-                holder.unicode.setText("Uni Code: " + myAppliedData.getUnicode());
-                holder.coursename.setText("Preffered Course : "+myAppliedData.getCourse());
-                holder.cutoff_21.setText("2021 clusters: " + myAppliedData.getCutofftwo());
-                holder.progcode.setText("ProgCode: " + myAppliedData.getProgcode());
-                holder.myclust.setText("Your Clusters: " + myAppliedData.getMycluster());
+                holder.unicode.setText("Uni Code: " + myRecData.getUnicode());
+                holder.coursename.setText("Preffered Course : "+myRecData.getCourse());
+                holder.cutoff_21.setText("2021 clusters: " + myRecData.getCutofftwo());
+                holder.progcode.setText("ProgCode: " + myRecData.getProgcode());
+                holder.myclust.setText("Your Clusters: " + myRecData.getMycluster());
 
 
 
@@ -65,7 +65,7 @@ public class MyAppliedAdapter extends RecyclerView.Adapter<MyAppliedAdapter.View
     }
     @Override
     public int getItemCount() {
-        return appliedData.size();
+        return RecData.size();
 
     }
 

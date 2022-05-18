@@ -57,38 +57,41 @@ public class profile extends Fragment {
             hum=view.findViewById(R.id.hum);
             applied=view.findViewById(R.id.applied);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
-            CollectionReference usersRef = db.collection("marksdata");
-            usersRef.get().addOnCompleteListener((OnCompleteListener<QuerySnapshot>) task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String cluster= document.get("cluster").toString();
-                        Toast.makeText(getActivity(), cluster, Toast.LENGTH_SHORT).show();
-                        String grades = document.getString("grade");
-                        String totals= document.get("total").toString();
-                        String engl = document.getString("eng");
-                        String math = document.getString("kisw");
-                        String kiswah = document.getString("kisw");
-                        String scia = document.getString("sciA");
-                        String scib = document.getString("sciB");
-                        String human = document.getString("hum");
-                        String appl = document.getString("applied");
-                        clusters.setText("Your Cluster points are : "+cluster);
-                        Grade.setText("Your Grade is : "+grades);
-                        total.setText("Your total points are : "+totals);
-                        Eng.setText("English : "+engl);
-                        kiswa.setText("Kiswahili : "+kiswah);
-                        maths.setText("Mathematics : "+math);
-                        sciA.setText("Science 1 : "+scia);
-                        sciB.setText("Science 2  : "+scib);
-                        hum.setText("Humanities : "+human);
-                        applied.setText("Applied : "+appl);
+
+            db.collection("marksdata").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    if (task.isSuccessful()) {
+
+                        String cluster = task.getResult().get("cluster").toString();
+                        //  Toast.makeText(getActivity(), cluster, Toast.LENGTH_SHORT).show();
+                        String grades = task.getResult().getString("grade");
+                        String totals = task.getResult().get("total").toString();
+                        String engl = task.getResult().getString("eng");
+                        String math = task.getResult().getString("kisw");
+                        String kiswah = task.getResult().getString("kisw");
+                        String scia = task.getResult().getString("sciA");
+                        String scib = task.getResult().getString("sciB");
+                        String human = task.getResult().getString("hum");
+                        String appl = task.getResult().getString("applied");
+                        clusters.setText("Your Cluster points are : " + cluster);
+                        Grade.setText("Your Grade is : " + grades);
+                        total.setText("Your total points are : " + totals);
+                        Eng.setText("English : " + engl);
+                        kiswa.setText("Kiswahili : " + kiswah);
+                        maths.setText("Mathematics : " + math);
+                        sciA.setText("Science 1 : " + scia);
+                        sciB.setText("Science 2  : " + scib);
+                        hum.setText("Humanities : " + human);
+                        applied.setText("Applied : " + appl);
+
+
+                    } else {
+                        Toast.makeText(getActivity(), "Error getting messages", Toast.LENGTH_SHORT).show();
 
                     }
-                } else {
-                    Toast.makeText(getActivity(), "Error getting messages", Toast.LENGTH_SHORT).show();
-
                 }
-
             });
 
 //try {

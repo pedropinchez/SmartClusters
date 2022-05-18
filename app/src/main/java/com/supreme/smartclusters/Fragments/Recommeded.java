@@ -13,13 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
@@ -30,17 +26,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.supreme.smartclusters.MyAppliedAdapter;
 import com.supreme.smartclusters.MyAppliedData;
-import com.supreme.smartclusters.MyListAdapter;
-import com.supreme.smartclusters.MyListData;
+import com.supreme.smartclusters.MyRecAdapter;
+import com.supreme.smartclusters.MyRecData;
 import com.supreme.smartclusters.R;
-
 
 import java.util.ArrayList;
 
 
-public class Applied extends Fragment {
+public class Recommeded extends Fragment {
     RecyclerView recyclerView;
-    ArrayList<MyAppliedData> appliedData;
+    ArrayList<MyRecData> recData;
     ArrayList<String> documentIds;
     FirebaseFirestore firebaseFirestore;
     Query query;
@@ -49,10 +44,11 @@ public class Applied extends Fragment {
     private String userId;
 
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final View view = inflater.inflate(R.layout.fragment_applied, container, false);
+        final View view = inflater.inflate(R.layout.fragment_recommeded, container, false);
         recyclerView = view.findViewById(R.id.recycerview);
 
         if (container != null) {
@@ -60,49 +56,16 @@ public class Applied extends Fragment {
         }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("courses");
-        appliedData = new ArrayList<>();
+        recData= new ArrayList<>();
         documentIds = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = mAuth.getCurrentUser().getUid();
-        query = firebaseFirestore.document(userId).collection("courses").orderBy("unicode", Query.Direction.DESCENDING);
+        query = firebaseFirestore.document(userId).collection("courses").orderBy("unicode", Query.Direction.DESCENDING).limit(3);
         firebaseFirestore.collection("courses");
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
-            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                @Override
-                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
-                    firebaseFirestore.collection("courses")
-                            .document(documentIds.get(viewHolder.getAdapterPosition()))
-                            .delete()
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-
-
-                                    Toast.makeText(getActivity(), "deleted" + viewHolder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getActivity(), "failure", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
-            }).attachToRecyclerView(recyclerView);
-        } else {
-
-
-        }
         return view;
 
 
@@ -122,7 +85,7 @@ public class Applied extends Fragment {
 
 
                     else {
-                        appliedData = new ArrayList<>();
+                        recData = new ArrayList<>();
 
                         assert queryDocumentSnapshots != null;
                         if (!queryDocumentSnapshots.isEmpty()) {
@@ -131,8 +94,8 @@ public class Applied extends Fragment {
 
                             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 id = documentSnapshot.getId();
-                                MyAppliedData myAppliedData = documentSnapshot.toObject(MyAppliedData.class);
-                                appliedData.add(myAppliedData);
+                                MyRecData myRecData = documentSnapshot.toObject(MyRecData.class);
+                                recData.add(myRecData);
                                 documentIds.add(id);
 
                             }
@@ -141,7 +104,7 @@ public class Applied extends Fragment {
 
 
                                 recyclerView.setAdapter(null);
-                                MyAppliedAdapter adapter = new MyAppliedAdapter(appliedData, getActivity());
+                                MyRecAdapter adapter = new MyRecAdapter(recData, getActivity());
                                 // recyclerView.setHasFixedSize(true);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);

@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="APPLY"
+        android:text="Add to Favourites"
         android:background="@drawable/btn_rounded_blue"/>
 
 </LinearLayout>

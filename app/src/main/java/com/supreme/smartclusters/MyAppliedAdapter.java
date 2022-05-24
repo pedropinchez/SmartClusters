@@ -50,7 +50,7 @@ public class MyAppliedAdapter extends RecyclerView.Adapter<MyAppliedAdapter.View
                 holder.coursename.setText("Preffered Course : "+myAppliedData.getCourse());
                 holder.cutoff_21.setText("2021 clusters: " + myAppliedData.getCutofftwo());
                 holder.progcode.setText("ProgCode: " + myAppliedData.getProgcode());
-                holder.myclust.setText("Your Clusters: " + myAppliedData.getMycluster());
+                holder.myclust.setText("Your Clusters: " + myAppliedData.getMycluster().toString());
 
 
 

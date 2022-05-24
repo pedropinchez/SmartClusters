@@ -60,7 +60,6 @@ public class Applied extends Fragment {
         }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("courses");
         appliedData = new ArrayList<>();
         documentIds = new ArrayList<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -68,8 +67,8 @@ public class Applied extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = mAuth.getCurrentUser().getUid();
-        query = firebaseFirestore.document(userId).collection("courses").orderBy("unicode", Query.Direction.DESCENDING);
-        firebaseFirestore.collection("courses");
+        query = firebaseFirestore.collection("favourites").orderBy("unicode", Query.Direction.DESCENDING);
+        firebaseFirestore.collection("favourites");
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
             new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -80,7 +79,7 @@ public class Applied extends Fragment {
 
                 @Override
                 public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
-                    firebaseFirestore.collection("courses")
+                    firebaseFirestore.collection("favourites")
                             .document(documentIds.get(viewHolder.getAdapterPosition()))
                             .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {

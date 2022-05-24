@@ -56,7 +56,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle mActionBarDrawerToggle;
     private AppBarConfiguration mAppBarConfiguration;
-    private Uri mainImageURI = null;
+    private final Uri mainImageURI = null;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private String userId;
@@ -83,63 +83,7 @@ public class MainActivity extends AppCompatActivity {
         email.setText(profemail);
 
 
-        db.collection("marksdata").document(userId).get().addOnCompleteListener(task -> {
 
-                if (task.getResult().exists()) {
-                    Toast.makeText(this, userId, Toast.LENGTH_SHORT).show();
-                    String eng = task.getResult().getString("eng");
-                    String kisw = task.getResult().getString("kisw");
-                    String math = task.getResult().getString("math");
-                    String sciA = task.getResult().getString("sciA");
-                    String sciB = task.getResult().getString("sciB");
-                    String hum = task.getResult().getString("hum");
-                    String applied = task.getResult().getString("applied");
-                    String grade = task.getResult().getString("grade");
-
-                        int english=Integer.parseInt(eng);
-                        int kiswa=Integer.parseInt(kisw);
-                        int maths=Integer.parseInt(math);
-                        int scia=Integer.parseInt(sciA);
-                        int scib=Integer.parseInt(sciB);
-                        int human=Integer.parseInt(hum);
-                        int app=Integer.parseInt(applied);
-                        int t=english+kiswa+maths+scia+scib+human+app;
-                        int T=84;
-                        int a=maths;
-                        int b=Math.max(kiswa,english);
-                        int c=Math.max(scia,scib);
-                        int d=Math.max(human,app);
-                        int r=a+b+c+d;
-                        int R=48;
-                        double f=Math.sqrt((r/R)*(t/T));
-                        f= (int) (f*48);
-
-                        Map<String, Object> post = new HashMap<>();
-
-
-                        post.put("cluster", f);
-                        post.put("total", t);
-                        FirebaseFirestore.getInstance().collection("marksdata").document()
-                                .set(post)
-                                .addOnSuccessListener(aVoid -> {
-                                    // pdialog.dismiss();
-                                    Toast.makeText(MainActivity.this, "upload success", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(MainActivity.this, MainActivity.class));
-                                    finish();
-
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(getApplicationContext(), "Something went wrong :(", Toast.LENGTH_LONG).show();
-                                    finish();
-
-
-                                });
-
-
-                      }
-
-
-        });
 
 
         // Passing each menu ID as a set of Ids because each

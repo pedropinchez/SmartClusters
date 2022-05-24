@@ -73,7 +73,7 @@ public class Home extends Fragment {
         db = FirebaseFirestore.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        query = firebaseFirestore.document(userId).collection("cluster_guide").orderBy("uniCode", Query.Direction.DESCENDING);
+        query = firebaseFirestore.collection("cluster_guide").orderBy("uniCode", Query.Direction.DESCENDING);
         firebaseFirestore.collection("cluster_guide");
 
         return view;

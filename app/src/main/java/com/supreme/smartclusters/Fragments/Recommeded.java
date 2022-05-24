@@ -63,8 +63,8 @@ public class Recommeded extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         userId = mAuth.getCurrentUser().getUid();
-        query = firebaseFirestore.document(userId).collection("courses").orderBy("unicode", Query.Direction.DESCENDING).limit(3);
-        firebaseFirestore.collection("courses");
+        query = firebaseFirestore.collection("favourites").orderBy("mycluster", Query.Direction.DESCENDING).limit(3);
+        firebaseFirestore.collection("favourites");
 
         return view;
 

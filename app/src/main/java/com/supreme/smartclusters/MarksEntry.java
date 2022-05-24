@@ -116,11 +116,6 @@ public class MarksEntry extends Activity implements StepperFormListener {
         post.put("total",t);
         post.put("grade",grade);
         post.put("cluster",f);
-
-
-
-
-
         FirebaseFirestore.getInstance().collection("marksdata").document(userId)
                 .set(post)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

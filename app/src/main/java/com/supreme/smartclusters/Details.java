@@ -25,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.supreme.smartclusters.Utils.SharedPref;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class Details extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private String userId;
-    String clus;
+    private double clus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,36 +58,40 @@ public class Details extends AppCompatActivity {
         total = findViewById(R.id.total);
         apply = findViewById(R.id.apply);
 
-        Intent go = new Intent();
-        go = getIntent();
-        String course=go.getStringExtra("course");
-        String cutoffones = go.getStringExtra("cutoff_20");
-        String cutofftwos = go.getStringExtra("cutoff_21");
-        String unicodes = go.getStringExtra("unicode");
-        String progcodes = go.getStringExtra("progcode");
+        final Intent[] go = {new Intent()};
+        go[0] = getIntent();
+        String course= go[0].getStringExtra("course");
+        String cutoffones = go[0].getStringExtra("cutoff_20");
+        String cutofftwos = go[0].getStringExtra("cutoff_21");
+        String unicodes = go[0].getStringExtra("unicode");
+        String progcodes = go[0].getStringExtra("progcode");
         coursename.setText("Course Name : "+course);
         cut20.setText("Cut OFF 2021 : "+cutoffones);
         cut21.setText("Cut OFF 2022 : "+cutofftwos);
         unicode.setText("University Code : "+unicodes);
         progcode.setText("Program Code : "+progcodes);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference usersRef = db.collection("marksdata");
-        usersRef.get().addOnCompleteListener((OnCompleteListener<QuerySnapshot>) task -> {
+        DocumentReference usersRef = db.collection("marksdata").document(userId);
+        usersRef.get().addOnCompleteListener((OnCompleteListener<DocumentSnapshot>) task -> {
             if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                try{
+                    //double clus;
                     //  int cluster= (int) document.get("cluster");
-                    clus = document.get("cluster").toString();
-                    String tota = document.get("total").toString();
-                    String grad = document.getString("grade");
+                    clus = (long) task.getResult().get("cluster");
+                    String tota = task.getResult().get("total").toString();
+                    String grad = task.getResult().getString("grade");
                     //Toast.makeText(this, cluster, Toast.LENGTH_SHORT).show();
                     mycluster.setText("Your Cluster : " + clus);
                     total.setText("Total points : " + tota);
                     Grade.setText("Your Overal Grade : " + grad);
-                    int cluss = Integer.parseInt(clus);
+                    SharedPref sharedPref=new SharedPref(this);
+                    sharedPref.setclusters((int) clus);
+                    //int in2 = new Integer(clus);
+                    //int cluss = Integer.parseInt(clus);
                     int cutoff = Integer.parseInt(cutofftwos);
-                 //   Toast.makeText(this, "Cutoff :" + cutoff + "clusters : " + cluss, Toast.LENGTH_LONG).show();
+                   Toast.makeText(this, "Cutoff :" + cutoff + "clusters : " + clus, Toast.LENGTH_LONG).show();
 
-                    if (cluss < cutoff) {
+                    if (clus < cutoff) {
                         recomedation.setText("Not Recomedable. Cluster Point way above");
                        recomedation.setVisibility(View.VISIBLE);
                         confirm3.setVisibility(View.VISIBLE);
@@ -95,14 +100,23 @@ public class Details extends AppCompatActivity {
 
                     } else {
 
-                       // recomedation.setText("Course is  Recomedable for you.");
+                        // recomedation.setText("Course is  Recomedable for you.");
                         apply.setVisibility(View.VISIBLE);
                         recomedation.setVisibility(View.VISIBLE);
                         confirm3.setVisibility(View.VISIBLE);
                         confirm3.setImageResource(R.drawable.correct_won);
+                    }}
+                    catch(NumberFormatException ex){
+
+                          //  startActivity(new Intent(getApplicationContext(),MarksEntry.class));
+
+                        Toast.makeText(Details.this, "Error "+ex, Toast.LENGTH_SHORT).show();
                     }
-                }}
+                }
         });
+        SharedPref sharedPref=new SharedPref(this);
+        int xxx=sharedPref.getclusters();
+        String cl =String.valueOf(xxx);
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +128,7 @@ public class Details extends AppCompatActivity {
                 post.put("cutofftwo", cutofftwos);
                 post.put("unicode", unicodes);
                 post.put("progcode", progcodes);
-                post.put("mycluster", clus);
+                post.put("mycluster", cl);
 
 
                 db.collection("favourites").document(userId).set(post).addOnCompleteListener(new OnCompleteListener<Void>() {
